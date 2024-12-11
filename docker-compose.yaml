@@ -1,0 +1,21 @@
+services:
+  client:
+    image: frontend-bcycle
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    links: 
+      - api
+    stdin_open: true
+    tty: true
+
+  api:
+    image: backend-bcycle
+    build: ./backend
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENVIRONMENT=development
+    ports:
+      - "5005:5005"
